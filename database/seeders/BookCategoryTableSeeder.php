@@ -15,17 +15,17 @@ class BookCategoryTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker::create(); // Crea una instancia de Faker para generar datos aleatorios
+        $faker = Faker::create(); // Creo una instancia de Faker para generar datos random
 
-        $books = \App\Models\Book::all(); // Obtiene todos los libros de la tabla books
-        $categories = \App\Models\Category::all(); // Obtiene todas las categorías de la tabla categories
+        $books = \App\Models\Book::all(); // Obtengo todos los libros de la tabla books
+        $categories = \App\Models\Category::all(); // Obtengo todas las categorías de la tabla categories
     
         foreach ($books as $book) {
-            // Genera un número aleatorio entre 1 y 3 para determinar la cantidad de categorías asignadas a cada libro
+            // Genero un número aleatorio entre 1 y 3 para determinar la cantidad de categorías para cada libro
             $randomCategories = $categories->random($faker->numberBetween(1, 3));
     
             foreach ($randomCategories as $category) {
-                // Inserta un registro en la tabla pivot book_category con las claves foráneas book_id y category_id
+                // Inserto un registro en la tabla pivot book_category con las claves foráneas book_id y category_id
                 DB::table('book_category')->insert([
                     'book_id' => $book->id,
                     'category_id' => $category->id,
